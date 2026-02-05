@@ -69,33 +69,71 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
   <input type="password" name="password" placeholder="Password" required>
   <button type="submit">Login</button>
 </form>
-
-<script>
-document.getElementById("loginForm").addEventListener("submit", async (e)=>{
-  e.preventDefault();
-  const formData = new FormData(e.target);
-  const obj = {};
-  formData.forEach((v,k)=>obj[k]=v);
-  
-  const res = await fetch("http://localhost:3000/login", {
-    method:"POST",
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify(obj)
-  });
-  const data = await res.json();
-  if(data.success) {
-    window.location.href = "dashboard.html";
-  } else {
-    alert("Invalid login or payment pending");
-  }
-});
-</script>
+index.html
+login.html
+dashboard.html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Members Site</title>
+</head>
+<body>
+  <h1>Welcome</h1>
+  <a href="login.html">Login</a>
 </body>
 </html>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Members Dashboard</title>
+  <title>Login</title>
+</head>
+<body>
+
+<h2>Login</h2>
+
+<form id="loginForm">
+  <input type="email" name="email" placeholder="Email" required />
+  <input type="password" name="password" placeholder="Password" required />
+  <button type="submit">Login</button>
+</form>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const data = {
+    email: e.target.email.value,
+    password: e.target.password.value
+  };
+
+  const res = await fetch("https://YOUR_RENDER_URL/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+
+  const result = await res.json();
+
+  if (result.success) {
+    window.location.href = "dashboard.html";
+  } else {
+    alert("Login failed");
+  }
+});
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+</head>
+<body>
+  <h1>Members Area</h1>
+  <p>You are logged in.</p>
+</body>
+</html>
 </head>
 <body>
 <h1>Welcome to the Members Area</h1>
