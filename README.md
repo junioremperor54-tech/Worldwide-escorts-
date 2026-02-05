@@ -127,8 +127,8 @@ db.serialize(() => {
 
 // Signup
 app.post("/signup", async (req,res)=>{
-  const {name,email,password,city,bio} = req.body;
-  const hashPass = await bcrypt.hash(password,10);
+  const {name,email,password,city,bio,3photos} = req.body;
+  const hashPass = await bcrypt.hash(password,8);
   db.run("INSERT INTO users (name,email,password,city,bio) VALUES (?,?,?,?,?)",
          [name,email,hashPass,city,bio],
          function(err){
@@ -162,14 +162,14 @@ app.post("/verify-payment", (req,res)=>{
 
 app.listen(3000,()=>console.log("Server running on port 3000"));
 <script src="https://checkout.flutterwave.com/v3.js"></script>
-<button onClick="pay()">Pay KES 1000</button>
+<button onClick="pay()">Pay KES 100</button>
 
 <script>
 function pay(){
   FlutterwaveCheckout({
-    public_key: "YOUR_PUBLIC_KEY",
-    tx_ref: "TX"+Math.floor(Math.random()*100000),
-    amount: 1000,
+    flutterwave key: "flutterwave key",
+    tx_ref: "TX"+Math.floor(Math.random()*10000),
+    amount: 100 a week,400 a month
     currency: "KES",
     redirect_url: "dashboard.html"
   });
